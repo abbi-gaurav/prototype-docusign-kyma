@@ -34,7 +34,7 @@ Next step is to bind the application to the namespace. By binding, we are essent
 
 * Lets go back to our namespace.
 Provision the addon. This addon will then provide us a connector that will be used to establish connectivity between Kyma and DocuSign.
-For the URL, provide `git://https://github.com/abbi-gaurav/prototype-docusign-kyma//addons/index.yaml?ref=master`.
+For the URL, provide `git::https://github.com/abbi-gaurav/prototype-docusign-kyma//addons/index.yaml?ref=master`.
 Once addon is deployed, the connector will be avaialble in `Catalog->addons`. 
 ![](./assets/steps/back-to-ns.png)
 ![](./assets/steps/addons-config.png)
