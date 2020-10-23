@@ -32,13 +32,13 @@ func (ep *EventPublisher) EventHandler() http.HandlerFunc {
 			return
 		}
 
-		resp, err := ep.eventForwarder.Forward(kymaEvent)
+		err = ep.eventForwarder.Forward(kymaEvent)
 		if err != nil {
 			errors.HandleError(w, err, errors.InternalError)
 			return
 		}
 
-		logger.Logger.Infow("Received response for event publishing", "response", resp)
+		logger.Logger.Info("successfully published event to Kyma event mesh")
 
 		w.WriteHeader(http.StatusOK)
 	})

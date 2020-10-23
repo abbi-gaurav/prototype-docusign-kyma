@@ -33,36 +33,40 @@ func NewEventForwarder() *EventForwarder {
 	}
 }
 
-func (e *EventForwarder) Forward(event *events.KymaEvent) (map[string]interface{}, error) {
-	eventBytes, err := json.Marshal(event)
+func (e *EventForwarder) Forward(event *events.KymaEvent) (error) {
+	eventBytes, err := json.Marshal(event.Data)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	req, err := http.NewRequest(http.MethodPost, *e.eventPublishURL, bytes.NewReader(eventBytes))
 	if err != nil {
-		return nil, err
+		return err
 	}
+	req = e.enrichRequest(event, req)
 
 	resp, err := e.client.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer resp.Body.Close()
-
-	dec := json.NewDecoder(resp.Body)
-	var respMap map[string]interface{}
-	err = dec.Decode(&respMap)
-	if err != nil {
-		return nil, err
-	}
 
 	if resp.StatusCode != http.StatusOK {
 		errMsg := fmt.Sprintf("unexpected response when publishing event %d (%s)", resp.StatusCode, resp.Status)
 		logger.Logger.Error(errMsg)
-		return respMap, fmt.Errorf(errMsg)
+		return fmt.Errorf(errMsg)
 	}
 
-	return respMap, nil
+	return nil
 
+}
+
+func (e *EventForwarder) enrichRequest(event *events.KymaEvent, request *http.Request) *http.Request {
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("ce-specversion", "1.0")
+	request.Header.Set("ce-type", event.EventType)
+	request.Header.Set("ce-eventtypeversion", event.EventTypeVersion)
+	request.Header.Set("ce-id", event.EventID)
+	request.Header.Set("ce-source", *event.SourceID)
+	return request
 }
