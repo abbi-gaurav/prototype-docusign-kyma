@@ -18,7 +18,7 @@ spec:
         app: docusign-event-gw
     spec:
       containers:
-      - image: gabbi/docusign-event-gw:0.0.5
+      - image: gabbi/docusign-event-gw:kyma-1.15
         name: docusign-event-gw
         resources: {}
         ports:
@@ -34,6 +34,24 @@ spec:
           - --username=$(USERNAME)
           - --password=$(PASSWORD)
           - --app-name=docusign
-          - --event-publish-url=http://event-publish-service.kyma-system.svc.cluster.local:8080/v1/events
-          - --base-topic=docusign.com
+          - --event-publish-url=http://$(APP_NAME).kyma-integration.svc.cluster.local
+          - --base-topic=$(APP_NAME)
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: docusign-event-gw
+  name: docusign-event-gw
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: docusign-event-gw
+  type: ClusterIP
+status:
+  loadBalancer: {}

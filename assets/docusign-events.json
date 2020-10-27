@@ -1,0 +1,101 @@
+ {
+  "asyncapi": "1.0.0",
+  "info": {
+    "title": "DocuSign Events",
+    "version": "1.0.0",
+    "description": "Description of all the docusign events"
+  },
+  "baseTopic": "docusign",
+  "topics": {
+    "envelope.completed.v1": {
+      "subscribe": {
+        "summary": "Event containing information about envelope completed",
+        "payload": {
+          "type": "object",
+          "properties": {
+            "EnvelopeId": {
+              "title": "EnvelopeId",
+              "description": "EnvelopeId",
+              "type": "string"
+            },
+            "Status": {
+              "title": "Status",
+              "description": "Status",
+              "type": "string"
+            },
+            "StatusTime": {
+              "title": "StatusTime",
+              "description": "StatusTime",
+              "type": "string"
+            }
+          },
+          "example": {
+            "EnvelopeId": "94f7a99a-9884-4001-b276-263f95fd0dc5",
+            "Status": "Completed",
+            "StatusTime": "2019-08-27T07:23:01.906948"
+          }
+        }
+      }
+    },
+    "envelope.sent.v1": {
+      "subscribe": {
+        "summary": "Event containing information about envelope sent",
+        "payload": {
+          "type": "object",
+          "properties": {
+            "EnvelopeId": {
+              "title": "EnvelopeId",
+              "description": "EnvelopeId",
+              "type": "string"
+            },
+            "Status": {
+              "title": "Status",
+              "description": "Status",
+              "type": "string"
+            },
+            "StatusTime": {
+              "title": "StatusTime",
+              "description": "StatusTime",
+              "type": "string"
+            }
+          },
+          "example": {
+            "EnvelopeId": "94f7a99a-9884-4001-b276-263f95fd0dc5",
+            "Status": "Sent",
+            "StatusTime": "2019-08-27T07:23:01.906948"
+          }
+        }
+      }
+    },
+    "envelope.delivered.v1": {
+      "subscribe": {
+        "summary": "Event containing information about envelope delivered",
+        "payload": {
+          "type": "object",
+          "properties": {
+            "EnvelopeId": {
+              "title": "EnvelopeId",
+              "description": "EnvelopeId",
+              "type": "string"
+            },
+            "Status": {
+              "title": "Status",
+              "description": "Status",
+              "type": "string"
+            },
+            "StatusTime": {
+              "title": "StatusTime",
+              "description": "StatusTime",
+              "type": "string"
+            }
+          },
+          "example": {
+            "EnvelopeId": "94f7a99a-9884-4001-b276-263f95fd0dc5",
+            "Status": "Delivered",
+            "StatusTime": "2019-08-27T07:23:01.906948"
+          }
+        }
+      }
+    }
+  }
+}
