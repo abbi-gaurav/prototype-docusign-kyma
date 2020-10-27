@@ -1,6 +1,6 @@
 module github.com/abbi-gaurav/prototype-docusign-kyma/docusign-event-gw
 
-go 1.12
+go 1.15
 
 require (
 	github.com/gofrs/uuid v3.2.0+incompatible

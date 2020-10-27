@@ -1,8 +1,8 @@
-RELEASE?=0.0.6
+RELEASE?=kyma-1.15
 APP?=docusign-event-gw
 GOOS?=linux
 GOARCH?=amd64
-CONTAINER_IMAGE?=gabbi/${APP}
+CONTAINER_IMAGE?=gabbi/${APP}:${RELEASE}
 
 clean:
 	rm -rf ${APP}
@@ -19,10 +19,10 @@ build: clean vet test
 		-o ${APP}
 
 build-image: build
-	docker build -t $(CONTAINER_IMAGE):$(RELEASE) .
+	docker build -t $(CONTAINER_IMAGE) .
 
 push-image:
-	docker push $(CONTAINER_IMAGE):$(RELEASE)
+	docker push $(CONTAINER_IMAGE)
 
 tidy:
 	GO111MODULE=on go mod tidy
